@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>atividade ead 22 do 9</title>
+</head>
+<body>
+
+    <p>adicione sua tarefa</p>
+
+    <input type="text" id="entrada" value="teste"/>
+    <button onclick="salvarDados()">salvar</button>
+
+    <br>
+
+    <p>Tarefa a fazer:</p>
+
+    <div id="editar"></div>
+
+    <div>
+        <ul id="resultados"></ul>
+    </div>
+
+    <script>
+
+    let index = 0;
+    let listaDeTarefas = [];
+
+function salvarDados() {
+ let entrada = document.getElementById("entrada").value;
+  let entradaOBJ = {
+   id: index,
+  texto: entrada
+ };
+
+    index++;
+
+     listaDeTarefas.push(entradaOBJ);
+
+    mostrar();
+        }
+
+        function mostrar() {
+   let ul = document.getElementById("resultados");
+
+            let html = "";
+            listaDeTarefas.forEach(elemento => {
+
+    console.log(elemento);
+
+   html += `<li>
+ ${elemento.texto}
+
+<button onclick="editar(${elemento.id})">
+    editar
+</button>
+
+ <button onclick="deletar(${elemento.id})">
+   deletar
+  </button>
+
+     </li>`;
+
+});
+
+  ul.innerHTML = html;
+ }
+
+        function editar(id) {
+
+            let tarefa = listaDeTarefas.find(obj => obj.id === id);
+
+            let novaTarefa = prompt("Digite a nova tarefa:", tarefa.texto);
+
+            if (novaTarefa !== null && novaTarefa !== "") {
+
+                tarefa.texto = novaTarefa;
+
+                mostrar();
+            }
+        }
+
+        function deletar(id) {
+
+            let novaLista = listaDeTarefas.filter(obj => obj.id !== id);
+
+            listaDeTarefas = novaLista;
+
+            mostrar();
+        }
+
+    </script>
+
+</body>
+</html>
